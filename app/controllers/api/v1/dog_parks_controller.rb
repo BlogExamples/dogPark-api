@@ -2,7 +2,9 @@ module Api
   module V1
 
     class DogParksController < ApplicationController
+      include ActionController::HttpAuthentication::Token::ControllerMethods
       before_action :set_dog_park, only: [:show, :update, :destroy]
+      before_action :restrict_access
 
       # GET /dog_parks
       def index
@@ -50,6 +52,12 @@ module Api
         # Only allow a trusted parameter "white list" through.
         def dog_park_params
           params.require(:dog_park).permit(:name)
+        end
+
+        def restrict_access
+          authenticate_or_request_with_http_token do |token, options|
+            ApiKey.exists?(access_token: token)
+          end
         end
     end
 
