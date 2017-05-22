@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+DogPark.destroy_all
+
+DogPark.create(name: 'Paw Park')
+DogPark.create(name: 'Puppies Paradise')
+DogPark.create(name: 'Bark Park')
